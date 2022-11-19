@@ -12,6 +12,7 @@ public class TravelInformationActivity extends AppCompatActivity {
 
     private Button btnPay;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

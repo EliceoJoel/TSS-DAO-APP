@@ -57,9 +57,17 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // Add a marker in San Simon University and move the camera
+        LatLng umss = new LatLng(-17.394108, -66.149405);
+        mMap.addMarker(new MarkerOptions().position(umss).title("Marker in San Simon University"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(umss, 15));
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(point));
+            }
+        });
     }
 }

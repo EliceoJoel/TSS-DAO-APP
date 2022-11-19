@@ -13,9 +13,18 @@
         android:theme="@style/Theme.MyTSSApp"
         tools:targetApi="31">
         <activity
-            android:name=".CheckoutActivity"
-            android:label="Pago del viaje"
+            android:name=".TravelInformationToBeMadeActivity"
             android:exported="false"
+            android:label="Información"
+            android:parentActivityName=".CheckoutActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".CheckoutActivity"
+            android:exported="false"
+            android:label="Pago del viaje"
             android:parentActivityName=".TravelInformationActivity">
             <meta-data
                 android:name="android.app.lib_name"
@@ -43,7 +52,7 @@
         <activity
             android:name=".TravelInformationActivity"
             android:exported="false"
-            android:label="Informacion del viaje"
+            android:label="Información del viaje"
             android:parentActivityName=".SelectDestinyActivity">
             <meta-data
                 android:name="android.app.lib_name"

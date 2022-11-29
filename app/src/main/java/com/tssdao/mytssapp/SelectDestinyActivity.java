@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tssdao.mytssapp.databinding.ActivitySelectDestinyBinding;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,9 +29,14 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     private ActivitySelectDestinyBinding binding;
     private Button btnConfirmDestinty;
     private List<Double> distancesBetweenAgencyAndCurrentLocation;
+    private int carQuantity = 2; // este valor vendra del layaout anterior
+    private String arriveTimeEstimated = "15 minutos"; // Valor fake - esto es algo que Samuel debe calcular con google maps
+    private String toDestinyTimeEstimated = "30 minutos"; // Valor fake - esto es algo que Samuel debe calcular con google maps
 
     //The maximum distance between the client and agencies in kilometers to take into account before send cars to the client
     public static double MAX_DISTANCE_BETWEEN_AGENCY_AND_CURRENT_LOCATION = 5.0;
+    //Price per kilometer in bs.
+    public static double PRICE_PER_KILOMETER =  2.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         //Initialize list of distances between agencies and current location
         //Esto solo es un ejemplo de las posibles distancias entre el usuario y las agencias al momento de solicitar el servicio
         //Para que pase al otro activity reducir alguna distancia entre 0.0 y 5.0
-        distancesBetweenAgencyAndCurrentLocation = Arrays.asList(5.3, 7.3, 6.3, 5.3);
+        distancesBetweenAgencyAndCurrentLocation = Arrays.asList(3.3, 7.3, 6.3, 5.3);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -54,8 +60,12 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         btnConfirmDestinty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MyTravel myTravel = new MyTravel(arriveTimeEstimated, toDestinyTimeEstimated,  getEstimatedPrice());
+                //Calcular distancias entre ubicacion actual y agencias aqui
+                //anadir las distancias al array aqui
                 if(!isOutOfRange()) {
                     Intent intent = new Intent(SelectDestinyActivity.this, TravelInformationActivity.class);
+                    intent.putExtra(MyTravel.PREFIX, myTravel);
                     startActivity(intent);
                 } else {
                     showOutOfRangeDialog();
@@ -75,6 +85,10 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
                 "La distancia desde donde se solicita el servicio esta muy alejada de nuestras agencias, mantente dentro de los 5km",
                 "OK");
         alertDialog.show(getSupportFragmentManager(), "Alert dialog");
+    }
+
+    private double getEstimatedPrice() {
+        return PRICE_PER_KILOMETER * Collections.min(distancesBetweenAgencyAndCurrentLocation) * carQuantity;
     }
 
     /**

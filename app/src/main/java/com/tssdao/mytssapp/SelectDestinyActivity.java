@@ -11,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tssdao.mytssapp.databinding.ActivitySelectDestinyBinding;
@@ -90,10 +91,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in San Simon University and move the camera
-        LatLng umss = new LatLng(-17.394108, -66.149405);
-        mMap.addMarker(new MarkerOptions().position(umss).title("Marker in San Simon University"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(umss, 15));
+        Agencias(googleMap);
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
@@ -102,5 +100,23 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
                 mMap.addMarker(new MarkerOptions().position(point));
             }
         });
+    }
+
+    public void Agencias(GoogleMap googleMap){
+
+        mMap = googleMap;
+        LatLng agencia1 = new LatLng(-17.399504, -66.157771);
+        mMap.addMarker(new MarkerOptions().position(agencia1).title("Agencia #1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(agencia1, 15));
+
+        LatLng agencia2 = new LatLng(-17.386864, -66.162262);
+        mMap.addMarker(new MarkerOptions().position(agencia2).title("Agencia #2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        LatLng agencia3 = new LatLng(-17.397961, -66.168682);
+        mMap.addMarker(new MarkerOptions().position(agencia3).title("Agencia #3").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        LatLng agencia4 = new LatLng(-17.383069, -66.164982);
+        mMap.addMarker(new MarkerOptions().position(agencia4).title("Agencia #4").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
     }
 }

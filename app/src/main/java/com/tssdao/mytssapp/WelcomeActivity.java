@@ -51,8 +51,13 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         myText = personas.getText().toString();
-                        Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
-                        startActivity(intent);
+                        int nP = Integer.parseInt(myText);
+                        if(nP <=5){
+                            Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
+                            startActivity(intent);
+                        }else{
+                            numPersonas(nP);
+                        }
                     }
                 });
                 AlertDialog titulo = alerta.create();
@@ -71,4 +76,53 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     }
+
+        public void numPersonas(int nP){
+
+            int nV;
+
+            AlertDialog.Builder alerta = new AlertDialog.Builder(WelcomeActivity.this);
+            alerta.setCancelable(false);
+
+            alerta.setPositiveButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            alerta.setNegativeButton("Proceder", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
+                    startActivity(intent);
+                }
+            });
+            nV=numVehiculos(nP);
+            AlertDialog titulo = alerta.create();
+            titulo.setMessage("La capacidad de pasajeros exede la capacidad de 5, desea solicitar " +nV+ " Automoviles ?");
+            titulo.show();
+            Button negBuuton = titulo.getButton(DialogInterface.BUTTON_NEGATIVE);
+            negBuuton.setBackgroundColor(Color.rgb(8,156,26));
+            negBuuton.setTextColor(Color.WHITE);
+
+            Button posBuuton = titulo.getButton(DialogInterface.BUTTON_POSITIVE);
+            posBuuton.setBackgroundColor(Color.rgb(8,156,26));
+            posBuuton.setTextColor(Color.WHITE);
+        }
+
+        public int numVehiculos(int n){
+            int res=0;
+            if( n>5 && n<=10){
+                res = 2;
+            }
+            if(n>10 && n<=15){
+                res = 3;
+            }
+            if(n>15 && n<=20){
+                res = 4;
+            }
+            return res;
+        }
+
 }

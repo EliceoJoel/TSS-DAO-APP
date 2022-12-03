@@ -44,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 alerta.setPositiveButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        finish();
+                        //Do nothing, just close dialog
                     }
                 });
                 alerta.setNegativeButton("Proceder", new DialogInterface.OnClickListener() {
@@ -87,7 +87,7 @@ public class WelcomeActivity extends AppCompatActivity {
             alerta.setPositiveButton("Cancelar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
+                    //nothing, just close dialog
                 }
             });
             alerta.setNegativeButton("Proceder", new DialogInterface.OnClickListener() {

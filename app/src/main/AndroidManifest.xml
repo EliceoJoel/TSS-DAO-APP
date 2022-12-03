@@ -53,8 +53,8 @@
             android:name=".TravelInformationActivity"
             android:exported="false"
             android:label="Información del viaje"
-            android:parentActivityName=".SelectDestinyActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".SelectDestinyActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

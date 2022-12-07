@@ -32,7 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-public class AgenciesInformationActivity extends FragmentActivity implements OnInfoWindowClickListener, OnMapReadyCallback{
+public class AgenciesInformationActivity extends FragmentActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
     //agencia 1 Avenida Ayacucho
     LatLng agencia1 = new LatLng(-17.399504, -66.157771);
@@ -86,7 +86,6 @@ public class AgenciesInformationActivity extends FragmentActivity implements OnI
             // here to request the missing permissions, and then overriding
             return;
         }
-        //mMap.setMyLocationEnabled(true);
 
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
@@ -109,15 +108,7 @@ public class AgenciesInformationActivity extends FragmentActivity implements OnI
             mMap.moveCamera(CameraUpdateFactory.newLatLng(agencies.get(i)));
         }
 
-        googleMap.setOnInfoWindowClickListener(this);
-
         int permiso = ContextCompat.checkSelfPermission(AgenciesInformationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-    }
-
-    @Override
-    public void onInfoWindowClick(@NonNull Marker marker) {
-
     }
 
     public ArrayList<LatLng> getAgencies() {

@@ -106,12 +106,14 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         mMap = googleMap;
 
         Agencias(googleMap);
-
+        moveZoom(new LatLng(-17.394108, -66.149405));
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
                 mMap.clear();
+                Agencias(googleMap);
                 mMap.addMarker(new MarkerOptions().position(point));
+                moveZoom(point);
             }
         });
     }
@@ -121,7 +123,6 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         mMap = googleMap;
         LatLng agencia1 = new LatLng(-17.399504, -66.157771);
         mMap.addMarker(new MarkerOptions().position(agencia1).title("Agencia #1").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(agencia1, 15));
 
         LatLng agencia2 = new LatLng(-17.386864, -66.162262);
         mMap.addMarker(new MarkerOptions().position(agencia2).title("Agencia #2").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
@@ -132,5 +133,9 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         LatLng agencia4 = new LatLng(-17.383069, -66.164982);
         mMap.addMarker(new MarkerOptions().position(agencia4).title("Agencia #4").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
 
+    }
+
+    private void moveZoom (LatLng point) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 15));
     }
 }

@@ -40,7 +40,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
                 AlertDialog.Builder alerta = new AlertDialog.Builder(WelcomeActivity.this);
 
-
                 alerta.setCancelable(false);
                 final EditText personas = new EditText(WelcomeActivity.this);
                 personas.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -56,12 +55,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         myText = personas.getText().toString();
                         int nP = Integer.parseInt(myText);
-                        numeroDeAutos = nP;
                         if(nP <=5){
-                            numeroDeAutos = 1;
                             Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
-                            intent.putExtra(CAR_NUM_PREFIX, numeroDeAutos);
-                            intent.putExtra(PASSENGER_NUM_PREFIX, Integer.parseInt(personas.getText().toString()));
+                            intent.putExtra(PASSENGER_NUM_PREFIX, nP);
                             startActivity(intent);
                         }else{
                             numPersonas(nP);
@@ -103,6 +99,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialogInterface, int i) {
 
                     Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
+                    intent.putExtra(PASSENGER_NUM_PREFIX, nP);
+                    intent.putExtra(CAR_NUM_PREFIX, numVehiculos(nP));
                     startActivity(intent);
                 }
             });

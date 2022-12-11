@@ -58,6 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         if(nP <=5){
                             Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
                             intent.putExtra(PASSENGER_NUM_PREFIX, nP);
+                            intent.putExtra(CAR_NUM_PREFIX, 1);
                             startActivity(intent);
                         }else{
                             numPersonas(nP);

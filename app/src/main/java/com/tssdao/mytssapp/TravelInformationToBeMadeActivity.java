@@ -36,7 +36,7 @@ public class TravelInformationToBeMadeActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         numPassenger = findViewById(R.id.num_passenger);
-        numPassenger.setText(getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
+        numPassenger.setText(Integer.toString(getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1)));
     }
 
 }

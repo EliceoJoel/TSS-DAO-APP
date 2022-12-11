@@ -44,7 +44,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     private ActivitySelectDestinyBinding binding;
     private Button btnConfirmDestinty;
     private List<Double> distancesBetweenAgencyAndCurrentLocation;
-    private int carQuantity = 2; // este valor vendra del layaout anterior
+    private int carQuantity; // este valor vendra del layaout anterior
     private String arriveTimeEstimated;
     private String toDestinyTimeEstimated;
 

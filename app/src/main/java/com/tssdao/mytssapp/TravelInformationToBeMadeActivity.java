@@ -17,6 +17,7 @@ public class TravelInformationToBeMadeActivity extends AppCompatActivity {
 
     private ActivityTravelInformationToBeMadeBinding binding;
     private TextView numPassenger;
+    private TextView carComeFrom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,9 @@ public class TravelInformationToBeMadeActivity extends AppCompatActivity {
 
         numPassenger = findViewById(R.id.num_passenger);
         numPassenger.setText(Integer.toString(getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1)));
+
+        carComeFrom = findViewById(R.id.car_come_from);
+        carComeFrom.setText(getIntent().getStringExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX));
     }
 
 }

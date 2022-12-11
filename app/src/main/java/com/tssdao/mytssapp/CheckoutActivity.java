@@ -45,6 +45,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 if(cardValidation()) {
                     Intent intent = new Intent(CheckoutActivity.this, TravelInformationToBeMadeActivity.class);
                     intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
+                    intent.putExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX, getIntent().getStringExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX));
                     startActivity(intent);
                 }
             }

@@ -35,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/input_card_number"
         android:layout_width="341dp"
         android:layout_height="48dp"
         android:layout_marginStart="35dp"
@@ -47,10 +47,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/input_card_expiration_month"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginStart="37dp"
+        android:layout_marginStart="35dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,54 +60,50 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="30dp"
         android:text="Mes"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/number_error" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="94dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="150dp"
         android:text="Año"
         android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toTopOf="@+id/textView12" />
 
     <EditText
-        android:id="@+id/editTextNumber3"
+        android:id="@+id/input_card_expiration_year"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="149dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumber2"
+        app:layout_constraintStart_toStartOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="345dp"
         android:text="CVC"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+        app:layout_constraintTop_toBottomOf="@+id/input_card_expiration_month" />
 
     <EditText
-        android:id="@+id/editTextNumber4"
+        android:id="@+id/input_card_cvc"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="35dp"
         android:layout_marginEnd="273dp"
         android:ems="10"
         android:inputType="number"
@@ -126,5 +122,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/number_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:text="Numero de tarjeta no valida"
+        android:textColor="#F44336"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_card_number"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/month_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:text="Mes no valido"
+        android:textColor="#F44336"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_card_expiration_month"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/year_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Año no valido"
+        android:textColor="#F44336"
+        app:layout_constraintStart_toStartOf="@+id/input_card_expiration_year"
+        app:layout_constraintTop_toBottomOf="@+id/input_card_expiration_year"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/cvc_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:text="CVC no valido"
+        android:textColor="#F44336"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_card_cvc"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

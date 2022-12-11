@@ -17,6 +17,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Button dialogoBtn;
     private String myText;
+    private int numeroDeAutos;
+
+    public static final String CAR_NUM_PREFIX = "car_number";
+    public static final String PASSENGER_NUM_PREFIX = "passenger_number";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +56,12 @@ public class WelcomeActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         myText = personas.getText().toString();
                         int nP = Integer.parseInt(myText);
+                        numeroDeAutos = nP;
                         if(nP <=5){
+                            numeroDeAutos = 1;
                             Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
+                            intent.putExtra(CAR_NUM_PREFIX, numeroDeAutos);
+                            intent.putExtra(PASSENGER_NUM_PREFIX, Integer.parseInt(personas.getText().toString()));
                             startActivity(intent);
                         }else{
                             numPersonas(nP);
@@ -99,6 +107,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             });
             nV=numVehiculos(nP);
+            numeroDeAutos = nV;
             AlertDialog titulo = alerta.create();
             titulo.setMessage("La capacidad de pasajeros exede la capacidad de 5, desea solicitar " +nV+ " Automoviles ?");
             titulo.show();

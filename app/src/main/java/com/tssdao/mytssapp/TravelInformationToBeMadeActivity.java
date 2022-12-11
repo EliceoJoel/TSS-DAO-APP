@@ -1,6 +1,7 @@
 package com.tssdao.mytssapp;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -15,6 +16,7 @@ import com.tssdao.mytssapp.databinding.ActivityTravelInformationToBeMadeBinding;
 public class TravelInformationToBeMadeActivity extends AppCompatActivity {
 
     private ActivityTravelInformationToBeMadeBinding binding;
+    private TextView numPassenger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class TravelInformationToBeMadeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_travel_information_to_be_made);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        numPassenger = findViewById(R.id.num_passenger);
+        numPassenger.setText(getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
     }
 
 }

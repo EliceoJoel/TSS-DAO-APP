@@ -41,6 +41,7 @@ public class TravelInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TravelInformationActivity.this, CheckoutActivity.class);
+                intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
                 startActivity(intent);
             }
         });

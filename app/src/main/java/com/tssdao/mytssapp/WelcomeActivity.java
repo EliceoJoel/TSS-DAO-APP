@@ -51,12 +51,39 @@ public class WelcomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         myText = personas.getText().toString();
-                        int nP = Integer.parseInt(myText);
-                        if(nP <=5){
+                        int nP = 0;
+                        if(!myText.isEmpty()) {
+                            nP = Integer.parseInt(myText);
+                        }
+
+                        System.out.println(myText);
+
+                        String actMensaje = "";
+                        if(nP>= 1 && nP <=5){
                             Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
                             startActivity(intent);
-                        }else{
+                        }else if (nP>= 6 && nP <=20){
                             numPersonas(nP);
+                        }else {
+                            actMensaje = validarValoresInvalidosCantidadParsonas(myText);
+                            //personas.setError(""+actMensaje);
+                            AlertDialog.Builder mensajeError = new AlertDialog.Builder(WelcomeActivity.this);
+                            mensajeError.setCancelable(false);
+
+                            mensajeError.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    //nothing
+                                }
+                            });
+
+                            AlertDialog titulo2 = mensajeError.create();
+                            titulo2.setMessage(actMensaje);
+                            titulo2.show();
+                            Button posBuuton = titulo2.getButton(DialogInterface.BUTTON_POSITIVE);
+                            posBuuton.setBackgroundColor(Color.rgb(8,156,26));
+                            posBuuton.setTextColor(Color.WHITE);
+
                         }
                     }
                 });
@@ -124,5 +151,20 @@ public class WelcomeActivity extends AppCompatActivity {
             }
             return res;
         }
+    public String validarValoresInvalidosCantidadParsonas (String cantParsonas){
+        String mensajeError = "";
+        int numPersonas = 0;
+        if(cantParsonas.isEmpty()){
+            mensajeError = "Cantidad de pasajeros inválido! El rango de pasajeros permitidos entre 1 y 20";
+        }else{
+            numPersonas = Integer.parseInt(cantParsonas);
+            if(numPersonas < 1 || numPersonas > 20 ){
+                mensajeError = "Cantidad de pasajeros inválido! El rango de pasajeros permitidos entre 1 y 20";
+            }
+        }
+        System.out.println(mensajeError);
+        return mensajeError;
+    }
+
 
 }

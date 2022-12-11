@@ -17,6 +17,8 @@ public class TravelInformationActivity extends AppCompatActivity {
     private TextView txtToDestinyTime;
     private TextView txtTotalPrice;
 
+    public static final String CAR_COME_FROM_PREFIX = "car_come_from";
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class TravelInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TravelInformationActivity.this, CheckoutActivity.class);
+                intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
+                intent.putExtra(CAR_COME_FROM_PREFIX, myTravelInfo.getAgenciesFromMyCarCome());
                 startActivity(intent);
             }
         });

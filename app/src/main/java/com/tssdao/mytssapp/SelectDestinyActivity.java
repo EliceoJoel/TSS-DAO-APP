@@ -132,16 +132,16 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         }
 
         switch (agencyNumber) {
-            case 1:
+            case 0:
                 agencyName = "Agencia 1: Av Ayacucho";
                 break;
-            case 2:
+            case 1:
                 agencyName = "Agencia 2: C. Hamiraya";
                 break;
-            case 3:
+            case 2:
                 agencyName = "Agencia 3: Av. Beneméritos";
                 break;
-            case 4:
+            case 3:
                 agencyName = "Agecnia 4: Av. José Ballivian";
                 break;
             default:

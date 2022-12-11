@@ -57,6 +57,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     AgenciesInformationActivity agencias = new AgenciesInformationActivity();
     private double dist = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,41 +76,43 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
 
         //Getting button to pass to next view
         btnConfirmDestinty = findViewById(R.id.btn_confirm_destiny);
-        btnConfirmDestinty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Utiizar las siguientes ubicaciones o otros, para verificar
-                //Ubicacion real del usuario
-                //myPosition = getMyPosition();
-                //Ubicacion fuera de rango (como ejemplo)
-                //myPosition = new LatLng(-17.430831, -66.118590);
-                //Ubicacion dentro del rango (como ejemplo)
-                myPosition = new LatLng(-17.394108, -66.149405);
-                //Distancias desde las Agencias al Usuario;
-                Distance distance = new Distance(myPosition,getUbicacionDestino());
-                distancesBetweenAgencyAndCurrentLocation = distance.listDistance();
-                System.out.println("Lista de distancia: "+distancesBetweenAgencyAndCurrentLocation);
 
-                //Tiempo de arrivo de la agencia hasta usuario
-                Time time = new Time(distance.distanciaMenor());
-                arriveTimeEstimated = (int)time.getTime()+" minutos";
+            btnConfirmDestinty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Utiizar las siguientes ubicaciones o otros, para verificar
+                    //Ubicacion real del usuario
+                    //myPosition = getMyPosition();
+                    //Ubicacion fuera de rango (como ejemplo)
+                    //myPosition = new LatLng(-17.430831, -66.118590);
+                    //Ubicacion dentro del rango (como ejemplo)
+                    myPosition = new LatLng(-17.394108, -66.149405);
+                    //Distancias desde las Agencias al Usuario;
+                    Distance distance = new Distance(myPosition, getUbicacionDestino());
+                    distancesBetweenAgencyAndCurrentLocation = distance.listDistance();
+                    System.out.println("Lista de distancia: " + distancesBetweenAgencyAndCurrentLocation);
 
-                //Distancia desde el Usuario al Destino seleccionado
-                dist = distance.calDistanceUserAndSelectDestiny();
-                time.setDistance(distance.calDistanceUserAndSelectDestiny());
-                toDestinyTimeEstimated = (int)time.getTime()+" minutos";
+                    //Tiempo de arrivo de la agencia hasta usuario
+                    Time time = new Time(distance.distanciaMenor());
+                    arriveTimeEstimated = (int) time.getTime() + " minutos";
 
-                MyTravel myTravel = new MyTravel(arriveTimeEstimated, toDestinyTimeEstimated,  getEstimatedPrice());
+                    //Distancia desde el Usuario al Destino seleccionado
+                    dist = distance.calDistanceUserAndSelectDestiny();
+                    time.setDistance(distance.calDistanceUserAndSelectDestiny());
+                    toDestinyTimeEstimated = (int) time.getTime() + " minutos";
 
-                if(!isOutOfRange()) {
-                    Intent intent = new Intent(SelectDestinyActivity.this, TravelInformationActivity.class);
-                    intent.putExtra(MyTravel.PREFIX, myTravel);
-                    startActivity(intent);
-                } else {
-                    showOutOfRangeDialog();
+                    MyTravel myTravel = new MyTravel(arriveTimeEstimated, toDestinyTimeEstimated, getEstimatedPrice());
+
+                    if (!isOutOfRange()) {
+                        Intent intent = new Intent(SelectDestinyActivity.this, TravelInformationActivity.class);
+                        intent.putExtra(MyTravel.PREFIX, myTravel);
+                        startActivity(intent);
+                    } else {
+                        showOutOfRangeDialog();
+                    }
                 }
-            }
-        });
+            });
+
     }
 
     private boolean isOutOfRange() {
@@ -150,14 +153,17 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
 
         Agencias(googleMap);
         moveZoom(new LatLng(-17.394108, -66.149405));
+        btnConfirmDestinty.setEnabled(false);
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
                 mMap.clear();
                 Agencias(googleMap);
                 mMap.addMarker(new MarkerOptions().position(point));
+                btnConfirmDestinty.setEnabled(true);
                 moveZoom(point);
                 setUbicacionDestino(point);
+
             }
         });
 

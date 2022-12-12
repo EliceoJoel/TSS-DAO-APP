@@ -3,36 +3,24 @@ package com.tssdao.mytssapp;
 import static android.app.PendingIntent.getActivity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-public class AgenciesInformationActivity extends FragmentActivity implements OnInfoWindowClickListener, OnMapReadyCallback{
+public class AgenciesInformationActivity extends FragmentActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
     //agencia 1 Avenida Ayacucho
     LatLng agencia1 = new LatLng(-17.399504, -66.157771);
@@ -58,7 +46,6 @@ public class AgenciesInformationActivity extends FragmentActivity implements OnI
 
         //Inicializamos
         agencies = new ArrayList<>();
-
 
         //Agregamos nuestras agencias
         agencies.add(agencia1);
@@ -86,38 +73,18 @@ public class AgenciesInformationActivity extends FragmentActivity implements OnI
             // here to request the missing permissions, and then overriding
             return;
         }
-        //mMap.setMyLocationEnabled(true);
 
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         for(int i = 0; i < agencies.size(); i++){
-            if(i == 0) {
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #1")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(agencies.get(i), 14));
-            }else if(i == 1){
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #2")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
-            }else if(i == 2){
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #3")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
-            }else if(i == 3){
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #4")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
-            }
+            mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #"+(i+1)).snippet("Avenida/calle: ")
+                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(agencies.get(i)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(agencies.get(i), 14));
         }
-
-        googleMap.setOnInfoWindowClickListener(this);
-
+        
         int permiso = ContextCompat.checkSelfPermission(AgenciesInformationActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
         //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-    }
-
-    @Override
-    public void onInfoWindowClick(@NonNull Marker marker) {
-
     }
 
     public ArrayList<LatLng> getAgencies() {

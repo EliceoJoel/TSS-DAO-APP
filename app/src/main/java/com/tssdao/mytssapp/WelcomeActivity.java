@@ -12,6 +12,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.Web3ClientVersion;
+import org.web3j.protocol.http.HttpService;
+
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -21,7 +27,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public static final String CAR_NUM_PREFIX = "car_number";
     public static final String PASSENGER_NUM_PREFIX = "passenger_number";
-
+   // private Web3j
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +42,7 @@ public class WelcomeActivity extends AppCompatActivity {
         dialogoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                connectToNode();
 
                 AlertDialog.Builder alerta = new AlertDialog.Builder(WelcomeActivity.this);
 
@@ -172,6 +178,34 @@ public class WelcomeActivity extends AppCompatActivity {
         }
         System.out.println(mensajeError);
         return mensajeError;
+    }
+
+    public void connectToNode(){
+        // Test 1 for smart contract
+        /*Web3j web3j = Web3j.build(
+                new HttpService("https://mainnet.infura.io/v3/fe8ba8e44c2846f7ada61e1c463b0eaf")
+        );
+        Credentials credentials = Credentials.create("fe8ba8e44c2846f7ada61e1c463b0eaf");
+        RemoteCall test = smart.Test_sol_SimpleStorage.deploy(web3j, credentials, new DefaultGasProvider(), "test");
+        test.sendAsync();
+        web3j.shutdown();
+        */
+
+        // Test 2 for connection to node
+        Web3j web3j = Web3j.build(new HttpService("https://goerli.infura.io/v3/fe8ba8e44c2846f7ada61e1c463b0eaf"));
+        try {
+            Web3ClientVersion clientVersion = web3j.web3ClientVersion()
+                    .sendAsync().get();
+            if (!clientVersion.hasError()) {
+                Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, clientVersion.getError().getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+
     }
 
 

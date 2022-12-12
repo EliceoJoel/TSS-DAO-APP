@@ -92,18 +92,14 @@ public class AgenciesInformationActivity extends FragmentActivity implements OnI
 
         for(int i = 0; i < agencies.size(); i++){
             if(i == 0) {
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #1")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
+                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #1").icon(BitmapDescriptorFactory.fromResource(R.drawable.cariconofficial)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(agencies.get(i), 14));
             }else if(i == 1){
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #2")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
+                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #2").icon(BitmapDescriptorFactory.fromResource(R.drawable.cariconofficial)));
             }else if(i == 2){
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #3")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
+                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #3").icon(BitmapDescriptorFactory.fromResource(R.drawable.cariconofficial)));
             }else if(i == 3){
-                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #4")
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_iconagencies_foreground)));
+                mMap.addMarker(new MarkerOptions().position(agencies.get(i)).title("Agencia #4").icon(BitmapDescriptorFactory.fromResource(R.drawable.cariconofficial)));
             }
             mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(agencies.get(i)));

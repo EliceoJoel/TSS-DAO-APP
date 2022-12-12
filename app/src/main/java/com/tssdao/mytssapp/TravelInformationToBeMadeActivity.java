@@ -1,5 +1,7 @@
 package com.tssdao.mytssapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -18,6 +20,10 @@ public class TravelInformationToBeMadeActivity extends AppCompatActivity {
     private ActivityTravelInformationToBeMadeBinding binding;
     private TextView numPassenger;
     private TextView carComeFrom;
+    private TextView precioTotal;
+    private TextView tiempoLlegada;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,28 @@ public class TravelInformationToBeMadeActivity extends AppCompatActivity {
 
         carComeFrom = findViewById(R.id.car_come_from);
         carComeFrom.setText(getIntent().getStringExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX));
+
+        precioTotal = findViewById(R.id.costo_de_viaje);
+        precioTotal.setText(Double.toString(getIntent().getDoubleExtra(TravelInformationActivity.PRECIO_TOTAL, 0.0)));
+
+        tiempoLlegada = findViewById(R.id.tiempo_de_llegada);
+        tiempoLlegada.setText(getIntent().getStringExtra("tiempoarrivo"));
+
+        sharedPreferences = this.getSharedPreferences("mylocal", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        almacenarPrecioTotal();
+    }
+
+    private void almacenarPrecioTotal() {
+        float almacenado = this.sharedPreferences.getFloat(TravelInformationActivity.PRECIO_TOTAL, 0.0f);
+        String precioReal = Float.toString(almacenado + (float)getIntent().getDoubleExtra(TravelInformationActivity.PRECIO_TOTAL, 0.0));
+        almacenarString(precioReal);
+    }
+
+    private void almacenarString(String valor) {
+        editor.putString("precio_total_string", valor + "Bs.");
+        editor.apply();
+
     }
 
 }

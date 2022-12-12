@@ -46,6 +46,8 @@ public class CheckoutActivity extends AppCompatActivity {
                     Intent intent = new Intent(CheckoutActivity.this, TravelInformationToBeMadeActivity.class);
                     intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
                     intent.putExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX, getIntent().getStringExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX));
+                    intent.putExtra(TravelInformationActivity.PRECIO_TOTAL, getIntent().getDoubleExtra(TravelInformationActivity.PRECIO_TOTAL, 0.0));
+                    intent.putExtra("tiempoarrivo", getIntent().getStringExtra("tiempoarrivo"));
                     startActivity(intent);
                 }
             }

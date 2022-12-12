@@ -3,7 +3,9 @@ package com.tssdao.mytssapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ public class TravelInformationActivity extends AppCompatActivity {
     private TextView txtTotalPrice;
 
     public static final String CAR_COME_FROM_PREFIX = "car_come_from";
+    public static final String PRECIO_TOTAL = "precio_total";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,6 +48,8 @@ public class TravelInformationActivity extends AppCompatActivity {
                 Intent intent = new Intent(TravelInformationActivity.this, CheckoutActivity.class);
                 intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
                 intent.putExtra(CAR_COME_FROM_PREFIX, myTravelInfo.getAgenciesFromMyCarCome());
+                intent.putExtra(PRECIO_TOTAL, myTravelInfo.getTotalPrice());
+                intent.putExtra("tiempoarrivo", myTravelInfo.getArriveTimeEstimated());
                 startActivity(intent);
             }
         });

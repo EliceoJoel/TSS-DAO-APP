@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/totalGanancias"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
@@ -81,7 +81,7 @@
                     android:id="@+id/budget_agency1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100 Bs."
+                    android:text="0.0 Bs."
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -117,7 +117,7 @@
                     android:id="@+id/budget_agency2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100 Bs."
+                    android:text="2.4 Bs."
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -153,7 +153,7 @@
                     android:id="@+id/budget_agency3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100 Bs."
+                    android:text="0.0 Bs."
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -189,7 +189,7 @@
                     android:id="@+id/budget_agency4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100 Bs."
+                    android:text="0.0 Bs."
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>

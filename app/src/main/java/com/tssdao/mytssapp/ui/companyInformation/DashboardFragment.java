@@ -2,13 +2,16 @@ package com.tssdao.mytssapp.ui.companyInformation;
 
 import com.tssdao.mytssapp.R;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -23,6 +26,8 @@ public class DashboardFragment extends Fragment {
     private Button btnAgencias;
     private FragmentCompanyBinding binding;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     private LinearLayout infoAgency1;
     private Button btnAgency1;
@@ -65,7 +70,18 @@ public class DashboardFragment extends Fragment {
         btnAgency4 = root.findViewById(R.id.btn_agency4);
         addOnClickFunction(btnAgency4, infoAgency4, "4");
 
+        renderizarPrecio(root);
+
+
+
         return root;
+    }
+
+    private void renderizarPrecio(View root) {
+        sharedPreferences = this.getActivity().getSharedPreferences("mylocal", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        TextView totalview = root.findViewById(R.id.totalGanancias);
+        totalview.setText(sharedPreferences.getString("precio_total_string", ""));
     }
 
     private void addOnClickFunction(Button btn, LinearLayout layout, String agencyNumber) {

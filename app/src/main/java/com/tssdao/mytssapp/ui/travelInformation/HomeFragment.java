@@ -13,9 +13,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tssdao.mytssapp.AgenciesInformationActivity;
+import com.tssdao.mytssapp.MyTravel;
 import com.tssdao.mytssapp.R;
 import com.tssdao.mytssapp.SelectDestinyActivity;
+import com.tssdao.mytssapp.Time;
 import com.tssdao.mytssapp.databinding.FragmentTravelBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -25,7 +30,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-
         binding = FragmentTravelBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 

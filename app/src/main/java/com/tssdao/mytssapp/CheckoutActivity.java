@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class CheckoutActivity extends AppCompatActivity {
 
+    MyTravel myTravel;
     private Button btnPayAndStartTravel;
     private EditText cardNumber;
     private EditText cardExpirationMonth;
@@ -26,6 +27,7 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkout);
 
+        myTravel = (MyTravel) getIntent().getSerializableExtra(MyTravel.PREFIX);
         //Getting elements from the layout
         btnPayAndStartTravel = findViewById(R.id.btn_pay_and_start);
         cardNumber = findViewById(R.id.input_card_number);
@@ -44,8 +46,11 @@ public class CheckoutActivity extends AppCompatActivity {
                 clearErrors();
                 if(cardValidation()) {
                     Intent intent = new Intent(CheckoutActivity.this, TravelInformationToBeMadeActivity.class);
+                    intent.putExtra(MyTravel.PREFIX, myTravel);
                     intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
                     intent.putExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX, getIntent().getStringExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX));
+                    intent.putExtra(TravelInformationActivity.tiempoLlegada, getIntent().getStringExtra(TravelInformationActivity.tiempoLlegada));
+                    intent.putExtra(SelectDestinyActivity.COSTO_DEL_VIAJE, getIntent().getStringExtra(SelectDestinyActivity.COSTO_DEL_VIAJE));
                     startActivity(intent);
                 }
             }

@@ -1,5 +1,6 @@
 package com.tssdao.mytssapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,9 +15,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class WelcomeActivity extends AppCompatActivity {
@@ -24,6 +33,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button dialogoBtn;
     private String myText;
     private int numeroDeAutos;
+    FirebaseFirestore store;
 
     public static final String CAR_NUM_PREFIX = "car_number";
     public static final String PASSENGER_NUM_PREFIX = "passenger_number";
@@ -31,7 +41,8 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        store = FirebaseFirestore.getInstance();
+        connectToFireBase();
         //Hide title bar for welcome layout view
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
@@ -205,6 +216,27 @@ public class WelcomeActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
+    }
+
+    public void connectToFireBase(){
+        Map<String,Object> docente = new HashMap<>();
+        docente.put("FirstName", "Henry");
+        docente.put("LastName", "Villaroel");
+        docente.put("Labor Position", "Director de Carrera");
+
+        store.collection("docentes").add(docente).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "FAILED", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 

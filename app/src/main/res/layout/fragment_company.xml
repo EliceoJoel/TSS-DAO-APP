@@ -72,12 +72,6 @@
                 android:layout_marginLeft="10dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Presupuesto para el mantenimiento de automoviles"
-                    android:textColor="@color/black" />
-
-                <TextView
                     android:id="@+id/budget_agency1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,12 +100,6 @@
                 android:orientation="vertical"
                 android:visibility="gone"
                 android:layout_marginLeft="10dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Presupuesto para el mantenimiento de automoviles"
-                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/budget_agency2"
@@ -143,11 +131,6 @@
                 android:visibility="gone"
                 android:layout_marginLeft="10dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Presupuesto para el mantenimiento de automoviles"
-                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/budget_agency3"
@@ -179,11 +162,6 @@
                 android:visibility="gone"
                 android:layout_marginLeft="10dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Presupuesto para el mantenimiento de automoviles"
-                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/budget_agency4"

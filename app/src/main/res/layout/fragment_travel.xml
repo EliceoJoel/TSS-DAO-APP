@@ -7,7 +7,7 @@
     tools:context=".ui.travelInformation.HomeFragment">
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/mensaje_viaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="6dp"
@@ -68,11 +68,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <Button
-        android:id="@+id/btn_nuevo_destino"
+        android:id="@+id/btn_estado_viaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="70dp"
-        android:text="Nuevo destino"
+        android:text="Confirmar llegada"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -124,5 +124,5 @@
         android:src="@drawable/wait_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/mensaje_viaje" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -113,6 +113,7 @@ public class DashboardFragment extends Fragment {
     private void renderizarPrecio(View root) {
         sharedPreferences = this.getActivity().getSharedPreferences("mylocal", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
+
         TextView totalview = root.findViewById(R.id.totalGanancias);
         totalview.setText(sharedPreferences.getString("precio_total_string", ""));
     }

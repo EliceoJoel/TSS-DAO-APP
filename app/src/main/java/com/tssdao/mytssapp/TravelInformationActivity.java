@@ -21,6 +21,8 @@ public class TravelInformationActivity extends AppCompatActivity {
 
     public static final String CAR_COME_FROM_PREFIX = "car_come_from";
     public static final String PRECIO_TOTAL = "precio_total";
+    public static final String TIEMPO_LLEGADA = "tiempo_llegada";
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,10 +48,7 @@ public class TravelInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TravelInformationActivity.this, CheckoutActivity.class);
-                intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
-                intent.putExtra(CAR_COME_FROM_PREFIX, myTravelInfo.getAgenciesFromMyCarCome());
-                intent.putExtra(PRECIO_TOTAL, myTravelInfo.getTotalPrice());
-                intent.putExtra("tiempoarrivo", myTravelInfo.getArriveTimeEstimated());
+                intent.putExtra(MyTravel.PREFIX, myTravelInfo);
                 startActivity(intent);
             }
         });

@@ -2,49 +2,37 @@ package com.tssdao.mytssapp;
 
 import static android.location.LocationManager.NETWORK_PROVIDER;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tssdao.mytssapp.databinding.ActivitySelectDestinyBinding;
 
-import java.io.IOException;
-import java.time.LocalTime;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-import java.util.NoSuchElementException;
+
 
 public class SelectDestinyActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -65,12 +53,6 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     public LatLng myPosition;
     AgenciesInformationActivity agencias = new AgenciesInformationActivity();
     private double dist = 0;
-    //my ubication
-    private Marker marcador;
-    double lat = 0.0;
-    double lng = 0.0;
-    String mensaje;
-    String direccion = "";
 
 
     @Override
@@ -196,13 +178,13 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        miUbicacion();
-       /* if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         mMap.setMyLocationEnabled(true);
 
-        */
+
 
         Agencias(googleMap);
         moveZoom(new LatLng(-17.394108, -66.149405));
@@ -274,101 +256,5 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     public LatLng getMyPosition() {
         return myPosition;
     }
-//my ubicacion
-    private void locationStart() {
-        LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        final boolean gpsEnabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        if (!gpsEnabled) {
-            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(settingsIntent);
-        }
-    }
 
-    private void setLocation(Location loc) {
-        if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
-            try {
-                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-                List<Address> list = geocoder.getFromLocation(
-                        loc.getLatitude(), loc.getLongitude(), 1
-                );
-                if (!list.isEmpty()) {
-                    Address DirCalle = list.get(0);
-                    direccion = (DirCalle.getAddressLine(0));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-
-
-            }
-        }
-    }
-
-    private void AgregarMarcador(double lat, double lng) {
-        LatLng coordenadas = new LatLng(lat, lng);
-        CameraUpdate MiUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
-        if (marcador != null) marcador.remove();
-        marcador = mMap.addMarker(new MarkerOptions()
-                .position(coordenadas)
-                .title("Direccion " + direccion)
-
-        );
-        mMap.animateCamera(MiUbicacion);
-
-    }
-
-    private void ActualizarUbicacion (Location location){
-        if(location!=null){
-            lat=location. getLatitude();
-            lng=location. getLongitude();
-            AgregarMarcador (lat, lng);
-
-
-        }
-
-    }
-
-    LocationListener locationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(@NonNull Location location) {
-            ActualizarUbicacion(location);
-            setLocation(location);
-        }
-        @Override
-        public void onProviderEnabled( String s) {
-            mensaje = "GPS Activado";
-            Mensaje();
-        }
-        @Override
-        public void onProviderDisabled(String s) {
-            mensaje="6PS Desactivado";
-            locationStart();
-            Mensaje();
-        }
-
-    };
-    private static int PETICION_PERMISO_LOCALIZACION = 101;
-
-    @SuppressLint("MissingPermission")
-    private void miUbicacion () {
-        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions( this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PETICION_PERMISO_LOCALIZACION);
-            return;
-        } else {
-            LocationManager locationManager = (LocationManager) getSystemService( (Context.LOCATION_SERVICE));
-            Location location = locationManager.getLastKnownLocation (LocationManager.GPS_PROVIDER);
-            ActualizarUbicacion(location);
-            locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,1200,0, locationListener);
-
-
-
-        }
-        mMap.setMyLocationEnabled(true);
-    }
-
-    public void Mensaje(){
-        Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
-    }
 }

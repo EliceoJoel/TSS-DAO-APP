@@ -150,7 +150,7 @@ public class DashboardFragment extends Fragment {
         String ubicacion = snapshot.getData().get("ubicacion").toString();
         String presupuesto = snapshot.getData().get("presupuesto").toString();
 
-        return  "disponibilidad de vehiculos: " + dispo + "\n" + "Numero Agencia: " + numA + "\n" + "ubicacion de la agencia: " + ubicacion + "\n" +"presupuesto para reparacion: " + presupuesto;
+        return  "Disponibilidad de vehiculos: " + dispo + "\n" + "Numero Agencia: " + numA + "\n" + "Ubicacion de la agencia: " + ubicacion + "\n" +"Presupuesto para reparacion: " + presupuesto;
 
     }
 

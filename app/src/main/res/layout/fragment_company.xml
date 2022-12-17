@@ -35,8 +35,8 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
-        android:layout_width="417dp"
-        android:layout_height="450dp"
+        android:layout_width="413dp"
+        android:layout_height="522dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="2dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,18 +66,17 @@
                 android:id="@+id/info_agency1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginLeft="10dp">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/budget_agency1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0.0 Bs."
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:text="..."
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,18 +95,17 @@
                 android:id="@+id/info_agency2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginLeft="10dp">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/budget_agency2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2.4 Bs."
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:text="..."
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,19 +124,18 @@
                 android:id="@+id/info_agency3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginLeft="10dp">
+                android:visibility="gone">
 
 
                 <TextView
                     android:id="@+id/budget_agency3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0.0 Bs."
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:text="..."
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -157,19 +154,18 @@
                 android:id="@+id/info_agency4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginLeft="10dp">
+                android:visibility="gone">
 
 
                 <TextView
                     android:id="@+id/budget_agency4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0.0 Bs."
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                    android:text="..."
+                    android:textColor="@color/black" />
             </LinearLayout>
         </LinearLayout>
 
@@ -177,11 +173,9 @@
 
     <Button
         android:id="@+id/own_agencies"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="107dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="104dp"
+        android:layout_width="225dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="40dp"
         android:text="Nuestras agencias"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

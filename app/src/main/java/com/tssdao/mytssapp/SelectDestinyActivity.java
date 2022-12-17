@@ -2,10 +2,9 @@ package com.tssdao.mytssapp;
 
 import static android.location.LocationManager.NETWORK_PROVIDER;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,17 +24,15 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tssdao.mytssapp.databinding.ActivitySelectDestinyBinding;
 
-import java.time.LocalTime;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
+
 
 public class SelectDestinyActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -187,6 +184,8 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         }
         mMap.setMyLocationEnabled(true);
 
+
+
         Agencias(googleMap);
         moveZoom(new LatLng(-17.394108, -66.149405));
         btnConfirmDestinty.setEnabled(false);
@@ -257,4 +256,5 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     public LatLng getMyPosition() {
         return myPosition;
     }
+
 }

@@ -1,5 +1,7 @@
 package com.tssdao.mytssapp;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,6 +40,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private int numeroDeAutos;
     FirebaseFirestore store;
 
+
+
     public static final String CAR_NUM_PREFIX = "car_number";
     public static final String PASSENGER_NUM_PREFIX = "passenger_number";
    // private Web3j
@@ -42,7 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         store = FirebaseFirestore.getInstance();
-        connectToFireBase();
+        //connectToFireBase();
         //Hide title bar for welcome layout view
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
@@ -219,23 +226,27 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
+
     public void connectToFireBase(){
         Map<String,Object> docente = new HashMap<>();
-        docente.put("FirstName", "Henry");
-        docente.put("LastName", "Villaroel");
-        docente.put("Labor Position", "Director de Carrera");
+        docente.put("disponibilidad", "4");
+        docente.put("direccion", "av. aroma");
+        docente.put("presupuesto", "3000");
 
-        store.collection("docentes").add(docente).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "FAILED", Toast.LENGTH_LONG).show();
-            }
-        });
+        store.collection("agencias").document("Agencia1")
+                .set(docente)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                    }
+                });
 
 
     }

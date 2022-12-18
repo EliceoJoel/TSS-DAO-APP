@@ -144,8 +144,29 @@ public class DashboardFragment extends Fragment {
         sharedPreferences = this.getActivity().getSharedPreferences("mylocal", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        TextView totalview = root.findViewById(R.id.totalGanancias);
-        totalview.setText(sharedPreferences.getString("precio_total_string", ""));
+        final DocumentReference docRef = db.collection("informacion_empresa").document("ganancia");
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    String infoTotal = snapshot.getData().get("total").toString();
+                    TextView totalview = root.findViewById(R.id.totalGanancias);
+                    totalview.setText(infoTotal + " Bs");
+
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
+            }
+        });
+
+
+        
     }
 
     private void addOnClickFunction(Button btn, LinearLayout layout, String agencyNumber, TextView infoAg, String id) {

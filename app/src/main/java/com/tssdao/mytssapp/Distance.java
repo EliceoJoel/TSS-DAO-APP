@@ -84,16 +84,6 @@ public class Distance{
         return distancia;
     }
 
-    public Double calDistance2(double latUbicacion, double lngUbicacion, double latAgencies, double lngAgencies){
-        float results[] = new float [10];
-        Location.distanceBetween(latUbicacion, lngUbicacion, latAgencies, lngAgencies, results);
-        Double distResMeters = new Double(results[0]);
-        Double distResKm = (distResMeters % 10000);
-       // System.out.println("********DISTANCIA CALCULADA SAMUEL*******"+distResKm);
-        return distResKm;
-
-    }
-
     public double distanciaMenor(){
         return distanciaMenor(listDistance());
     }

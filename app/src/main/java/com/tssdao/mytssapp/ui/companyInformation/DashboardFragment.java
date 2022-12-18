@@ -16,12 +16,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
 import com.tssdao.mytssapp.R;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +38,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -39,9 +50,18 @@ import androidx.lifecycle.ViewModelProvider;
 import com.tssdao.mytssapp.AgenciesInformationActivity;
 import com.tssdao.mytssapp.databinding.FragmentCompanyBinding;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class DashboardFragment extends Fragment {
 
     FirebaseFirestore db;
+
+    //PDFs
+    String NOMBRE_DIRECTORIO = "MyTSSApp";
+    String NOMBRE_DOCUMENTO = "intelliCar.pdf";
+    Button btnGenerar;
 
 
     private Button btnAgencias;
@@ -73,13 +93,23 @@ public class DashboardFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_company, container, false);
         binding = FragmentCompanyBinding.inflate(inflater, container, false);
-
+        btnGenerar =  (Button) root.findViewById(R.id.btnCrearPdf);
         btnAgencias = (Button) root.findViewById(R.id.own_agencies);
         btnAgencias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AgenciesInformationActivity.class);
                 startActivity(intent);
+            }
+        });
+
+
+        // Genera el documento
+        btnGenerar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                extraerTotal("informacion_empresa","ganancia");
+                //Toast.makeText(myActivity.this, "SE CREO EL PDF", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -114,8 +144,29 @@ public class DashboardFragment extends Fragment {
         sharedPreferences = this.getActivity().getSharedPreferences("mylocal", Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
 
-        TextView totalview = root.findViewById(R.id.totalGanancias);
-        totalview.setText(sharedPreferences.getString("precio_total_string", ""));
+        final DocumentReference docRef = db.collection("informacion_empresa").document("ganancia");
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    String infoTotal = snapshot.getData().get("total").toString();
+                    TextView totalview = root.findViewById(R.id.totalGanancias);
+                    totalview.setText(infoTotal + " Bs");
+
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
+            }
+        });
+
+
+
     }
 
     private void addOnClickFunction(Button btn, LinearLayout layout, String agencyNumber, TextView infoAg, String id) {
@@ -175,4 +226,115 @@ public class DashboardFragment extends Fragment {
             }
         });
     }
+
+
+    public void crearPDF(String infoEmpresaTotal, String InfoAgencias) {
+        Document documento = new Document();
+
+        try {
+            File file = crearFichero(NOMBRE_DOCUMENTO);
+            FileOutputStream ficheroPDF = new FileOutputStream(file.getAbsolutePath());
+
+            PdfWriter writer = PdfWriter.getInstance(documento, ficheroPDF);
+
+            documento.open();
+
+            documento.add(new Paragraph("                                                 INFORMACION DE LA EMPRESA \n\n"));
+            documento.add(new Paragraph("Total Ganancias \n"));
+            documento.add(new Paragraph( infoEmpresaTotal + "  Bs \n\n"));
+            documento.add(new Paragraph("                                                               AGENCIAS \n"));
+            documento.add(new Paragraph( InfoAgencias));
+
+
+        } catch(DocumentException e) {
+        } catch(IOException e) {
+        } finally {
+            documento.close();
+        }
+    }
+    public File crearFichero(String nombreFichero) {
+        File ruta = getRuta();
+
+        File fichero = null;
+        if(ruta != null) {
+            fichero = new File(ruta, nombreFichero);
+        }
+
+        return fichero;
+    }
+
+    public File getRuta() {
+        File ruta = null;
+
+        if(Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            ruta = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), NOMBRE_DIRECTORIO);
+
+            if(ruta != null) {
+                if(!ruta.mkdirs()) {
+                    if(!ruta.exists()) {
+                        return null;
+                    }
+                }
+            }
+
+        }
+        return ruta;
+    }
+
+    public void extraerTotal(String idColeccion, String idDoc){
+        final DocumentReference docRef = db.collection(idColeccion).document(idDoc);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    String infoTotal = snapshot.getData().get("total").toString();
+                    extraerInfoAgencias(infoTotal,"agencias");
+
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
+            }
+        });
+    }
+
+    public void extraerInfoAgencias(String informacioTotal,String idColeccion){
+        db.collection(idColeccion)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            String texto= "";
+                            int n=1;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                   texto += "AGENCIA " + n +"\n" + reacomodar(document);
+                                   n++;
+                            }
+                        crearPDF(informacioTotal,texto);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+    public String reacomodar(QueryDocumentSnapshot document){
+
+
+        String c1 = document.getData().get("autos_disponibles").toString();
+        String c2 = document.getData().get("numero").toString();
+        String c3 = document.getData().get("ubicacion").toString();
+        String c4 = document.getData().get("presupuesto").toString() + "  Bs";
+
+        return  "Disponibilidad de vehiculos: " + c1 + "\n" + "Numero Agencia: " + c2 + "\n" + "Ubicacion de la agencia: " + c3 + "\n" +"Presupuesto para reparacion: " + c4 +"\n \n";
+
+
+    }
+
 }

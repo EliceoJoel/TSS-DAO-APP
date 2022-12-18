@@ -18,12 +18,6 @@ import com.tssdao.mytssapp.databinding.ActivityTravelInformationToBeMadeBinding;
 public class TravelInformationToBeMadeActivity extends AppCompatActivity {
 
     private ActivityTravelInformationToBeMadeBinding binding;
-    private TextView numPassenger;
-    private TextView carComeFrom;
-    private TextView precioTotal;
-    private TextView tiempoLlegada;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,34 +35,6 @@ public class TravelInformationToBeMadeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_travel_information_to_be_made);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        numPassenger = findViewById(R.id.num_passenger);
-        numPassenger.setText(Integer.toString(getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1)));
-
-        carComeFrom = findViewById(R.id.car_come_from);
-        carComeFrom.setText(getIntent().getStringExtra(TravelInformationActivity.CAR_COME_FROM_PREFIX));
-
-        precioTotal = findViewById(R.id.costo_de_viaje);
-        precioTotal.setText(Double.toString(getIntent().getDoubleExtra(TravelInformationActivity.PRECIO_TOTAL, 0.0)));
-
-        tiempoLlegada = findViewById(R.id.tiempo_de_llegada);
-        tiempoLlegada.setText(getIntent().getStringExtra("tiempoarrivo"));
-
-        sharedPreferences = this.getSharedPreferences("mylocal", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        almacenarPrecioTotal();
-    }
-
-    private void almacenarPrecioTotal() {
-        float almacenado = this.sharedPreferences.getFloat(TravelInformationActivity.PRECIO_TOTAL, 0.0f);
-        String precioReal = Float.toString(almacenado + (float)getIntent().getDoubleExtra(TravelInformationActivity.PRECIO_TOTAL, 0.0));
-        almacenarString(precioReal);
-    }
-
-    private void almacenarString(String valor) {
-        editor.putString("precio_total_string", valor + "Bs.");
-        editor.apply();
-
     }
 
 }

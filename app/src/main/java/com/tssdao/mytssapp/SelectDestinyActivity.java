@@ -100,12 +100,11 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
                 time.setDistance(distance.calDistanceUserAndSelectDestiny());
                 toDestinyTimeEstimated = (int) time.getTime() + " minutos";
 
-                MyTravel myTravel = new MyTravel(arriveTimeEstimated, toDestinyTimeEstimated, getEstimatedPrice(), getAgenciesFromCome(distance.listDistance()));
+                MyTravel myTravel = new MyTravel(arriveTimeEstimated, toDestinyTimeEstimated, getEstimatedPrice(), getAgencyFromCome(distance.listDistance()), carQuantity, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
 
                 if (!isOutOfRange()) {
                     Intent intent = new Intent(SelectDestinyActivity.this, TravelInformationActivity.class);
                     intent.putExtra(MyTravel.PREFIX, myTravel);
-                    intent.putExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, getIntent().getIntExtra(WelcomeActivity.PASSENGER_NUM_PREFIX, 1));
                     startActivity(intent);
                 } else {
                     showOutOfRangeDialog();
@@ -117,10 +116,9 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
 
 
 
-    private String getAgenciesFromCome(List<Double> distances) {
+    private Agencias getAgencyFromCome(List<Double> distances) {
         double minDistance = Collections.min(distancesBetweenAgencyAndCurrentLocation);
         int agencyNumber = 0;
-        String agencyName = "";
         for(int index = 0; index < distances.size(); index++) {
             if(distances.get(index) == minDistance) {
                 agencyNumber = index;
@@ -128,24 +126,26 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
             }
         }
 
+        Agencias agencia = null;
+
         switch (agencyNumber) {
             case 0:
-                agencyName = "Agencia 1: Av Ayacucho";
+                agencia = Agencias.AGENCIA1;
                 break;
             case 1:
-                agencyName = "Agencia 2: C. Hamiraya";
+                agencia = Agencias.AGENCIA2;
                 break;
             case 2:
-                agencyName = "Agencia 3: Av. Beneméritos";
+                agencia = Agencias.AGENCIA3;
                 break;
             case 3:
-                agencyName = "Agecnia 4: Av. José Ballivian";
+                agencia = Agencias.AGENCIA4;
                 break;
             default:
-                agencyName = "";
+                agencia = Agencias.AGENCIA1;
         }
 
-        return agencyName;
+        return agencia;
     }
 
     private boolean isOutOfRange() {

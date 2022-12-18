@@ -75,6 +75,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 if(cardValidation()) {
 
                     enviarAuto(myTravel);
+                    actualizarGananciaTotal();
                     almacenarDatosDelviajeEnDispositivo(myTravel.getTotalPrice(), myTravel.getNumberOfPassanger(), myTravel.getToDestinyTimeEstimated(), myTravel.getAgenciesFromMyCarCome().getUbicacion());
 
                     Intent intent = new Intent(CheckoutActivity.this, TravelInformationToBeMadeActivity.class);
@@ -99,6 +100,7 @@ public class CheckoutActivity extends AppCompatActivity {
                             DocumentReference docRef = db.collection("agencias").document(nombreAgencia);
                             Long cantidadActualDeAutosDisponibles = (Long) document.getData().get("autos_disponibles");
                             actualizarCantidadDeAutosDeAgencia(docRef, cantidadActualDeAutosDisponibles);
+                            actualizarPresupuestoAgencia(nombreAgencia);
                         } else {
                             actualizarSiguienteAgenciaConAutos(myTravel.getAgenciesFromMyCarCome().getNumero());
                         }
@@ -135,6 +137,7 @@ public class CheckoutActivity extends AppCompatActivity {
                                 DocumentReference docRef = db.collection("agencias").document(nombreAgenciaActual);
                                 Long cantidadActualDeAutosDisponibles = (Long) document.getData().get("autos_disponibles");
                                 actualizarCantidadDeAutosDeAgencia(docRef, cantidadActualDeAutosDisponibles);
+                                actualizarPresupuestoAgencia(nombreAgenciaActual);
                                 agenciaConAutosEncontrada = true;
                             } else {
                                 //si la agencia que no tiene autos es la 4, empezar a revisar la agencia 1
@@ -259,5 +262,57 @@ public class CheckoutActivity extends AppCompatActivity {
         editor.putString("mensaje_viaje", "Ya estamos en camino, esperanos...");
         editor.putString("btn_text", "Confirmar llegada");
         editor.apply();
+    }
+
+    private void actualizarGananciaTotal() {
+        DocumentReference docRef = db.collection("informacion_empresa").document("ganancia");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        Object totalActual = document.getData().get("total");
+                        double totalAAgregar = myTravel.getTotalPrice() * 0.3;
+                        if(totalActual instanceof Long) {
+                            docRef.update("total", (Long)totalActual + totalAAgregar);
+                        } else if (totalActual instanceof Double) {
+                            docRef.update("total", (Double)totalActual + totalAAgregar);
+                        }
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void actualizarPresupuestoAgencia(String nombreAgencia) {
+        DocumentReference docRef = db.collection("agencias").document(nombreAgencia);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        Object presupuestoAgenciaActual = document.getData().get("presupuesto");
+                        double totalPresupuestoAAgregar = myTravel.getTotalPrice() * 0.7;
+                        if(presupuestoAgenciaActual instanceof Long) {
+                            docRef.update("presupuesto", (Long)presupuestoAgenciaActual + totalPresupuestoAAgregar);
+                        } else if(presupuestoAgenciaActual instanceof Double) {
+                            docRef.update("presupuesto", (Double)presupuestoAgenciaActual + totalPresupuestoAAgregar);
+                        }
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 }

@@ -166,7 +166,7 @@ public class DashboardFragment extends Fragment {
         });
 
 
-        
+
     }
 
     private void addOnClickFunction(Button btn, LinearLayout layout, String agencyNumber, TextView infoAg, String id) {

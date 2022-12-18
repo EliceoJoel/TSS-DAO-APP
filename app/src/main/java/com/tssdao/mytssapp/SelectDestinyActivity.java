@@ -51,7 +51,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     //The maximum distance between the client and agencies in kilometers to take into account before send cars to the client
     public static double MAX_DISTANCE_BETWEEN_AGENCY_AND_CURRENT_LOCATION = 5.0;
     //Price per kilometer in bs.
-    public static double PRICE_PER_KILOMETER =  2.0;
+    public static double PRICE_PER_KILOMETER =  2.5; // Se corrigio el precio de 2 bs a 3 bs
     public LatLng ubicacionDestino;
     public LatLng myPosition;
     AgenciesInformationActivity agencias = new AgenciesInformationActivity();
@@ -101,6 +101,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
                 //Distancia desde el Usuario al Destino seleccionado
                 dist = distance.calDistanceUserAndSelectDestiny();
                 time.setDistance(distance.calDistanceUserAndSelectDestiny());
+                System.out.println("Distancia de Usuario a Destino"+ dist);
                 toDestinyTimeEstimated = (int) time.getTime() + " minutos";
 
                 MyTravel myTravel = new MyTravel(arriveTimeEstimated, toDestinyTimeEstimated, getEstimatedPrice(), getAgenciesFromCome(distance.listDistance()));
@@ -117,9 +118,6 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
         });
     }
 
-
-
-
     private String getAgenciesFromCome(List<Double> distances) {
         double minDistance = Collections.min(distancesBetweenAgencyAndCurrentLocation);
         int agencyNumber = 0;
@@ -130,7 +128,6 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
                 break;
             }
         }
-
         switch (agencyNumber) {
             case 0:
                 agencyName = "Agencia 1: Av Ayacucho";
@@ -159,13 +156,21 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
     private void showOutOfRangeDialog() {
         SimpleAlertDialog alertDialog = new SimpleAlertDialog(
                 "Fuera de rango",
-                "La distancia desde donde se solicita el servicio esta muy alejada de nuestras agencias, mantente dentro de los 5km",
+                "La distancia desde donde se solicita el servicio esta muy alejada de nuestras agencias, mantente dentro de los 5 km",
                 "OK");
         alertDialog.show(getSupportFragmentManager(), "Alert dialog");
     }
 
     private double getEstimatedPrice() {
-        return PRICE_PER_KILOMETER * dist * carQuantity;
+        double costoTotal = PRICE_PER_KILOMETER * dist * carQuantity;
+        System.out. println(String.valueOf(costoTotal).length());
+
+
+        if (String.valueOf(costoTotal).length() > 4){
+            costoTotal = Math.ceil(costoTotal);
+        }
+
+        return costoTotal;
     }
 
     /**

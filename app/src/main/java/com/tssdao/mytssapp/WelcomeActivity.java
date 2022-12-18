@@ -145,7 +145,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(WelcomeActivity.this, SelectDestinyActivity.class);
                     intent.putExtra(PASSENGER_NUM_PREFIX, nP);
-                    intent.putExtra(CAR_NUM_PREFIX, numVehiculos(nP));
+                    intent.putExtra(CAR_NUM_PREFIX, numVehiculos(nP)); //
                     startActivity(intent);
                 }
             });
@@ -221,11 +221,11 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void connectToFireBase(){
         Map<String,Object> docente = new HashMap<>();
-        docente.put("FirstName", "Henry");
+        /*docente.put("FirstName", "Henry");
         docente.put("LastName", "Villaroel");
-        docente.put("Labor Position", "Director de Carrera");
+        docente.put("Labor Position", "Director de Carrera");*/
 
-        store.collection("docentes").add(docente).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        /*store.collection("docentes").add(docente).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_LONG).show();
@@ -235,7 +235,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), "FAILED", Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
 
     }

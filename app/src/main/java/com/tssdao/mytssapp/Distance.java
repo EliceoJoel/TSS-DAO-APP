@@ -1,5 +1,7 @@
 package com.tssdao.mytssapp;
 
+import android.location.Location;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -33,21 +35,25 @@ public class Distance{
         double Latagencia1 = -17.399504;
         double Lngagencia1 = -66.157771;
         double dist = calDistance(LatUsuario,LngUsuario,Latagencia1,Lngagencia1);
+        //double dist = calDistance(LatUsuario,LngUsuario,Latagencia1,Lngagencia1);
         distancias.add(dist);
         //agencia2
         double Latagencia2 = -17.386864;
         double Lngagencia2 = -66.162262;
         double dist2 = calDistance(LatUsuario,LngUsuario,Latagencia2,Lngagencia2);
+        //double dist2 = calDistance(LatUsuario,LngUsuario,Latagencia2,Lngagencia2);
         distancias.add(dist2);
         //agencia3
         double Latagencia3 = -17.397961;
         double Lngagencia3 = -66.168682;
         double dist3 = calDistance(LatUsuario,LngUsuario,Latagencia3,Lngagencia3);
+        //double dist3 = calDistance(LatUsuario,LngUsuario,Latagencia3,Lngagencia3);
         distancias.add(dist3);
         //agencia4
         double Latagencia4 = -17.383069;
         double Lngagencia4 = -66.164982;
         double dist4 = calDistance(LatUsuario,LngUsuario,Latagencia4,Lngagencia4);
+        //double dist4 = calDistance(LatUsuario,LngUsuario,Latagencia4,Lngagencia4);
         distancias.add(dist4);
 
         return distancias;
@@ -74,8 +80,18 @@ public class Distance{
         //Distancia en km desde la agencia hasta la ubicacion actual
         double c = 2 * Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
         double distancia = formatearDecimales(radioTierraKm*c);
-
+        //System.out.println("********DISTANCIA CALCULADA SAMUEL*******"+distancia);
         return distancia;
+    }
+
+    public Double calDistance2(double latUbicacion, double lngUbicacion, double latAgencies, double lngAgencies){
+        float results[] = new float [10];
+        Location.distanceBetween(latUbicacion, lngUbicacion, latAgencies, lngAgencies, results);
+        Double distResMeters = new Double(results[0]);
+        Double distResKm = (distResMeters % 10000);
+       // System.out.println("********DISTANCIA CALCULADA SAMUEL*******"+distResKm);
+        return distResKm;
+
     }
 
     public double distanciaMenor(){

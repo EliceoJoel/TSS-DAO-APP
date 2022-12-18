@@ -9,7 +9,8 @@ public class Time {
     }
 
     public double getTime() {
-        time = (getDistance()/30)*60;
+        //time = (getDistance()/30)*60;
+        time = Math.ceil(getDistance()*1.5); // 3.5 min por KM
         return time;
     }
 

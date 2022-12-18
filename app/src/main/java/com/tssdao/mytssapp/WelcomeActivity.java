@@ -229,7 +229,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void connectToFireBase(){
         Map<String,Object> docente = new HashMap<>();
-<<<<<<< HEAD
         /*docente.put("FirstName", "Henry");
         docente.put("LastName", "Villaroel");
         docente.put("Labor Position", "Director de Carrera");*/
@@ -245,7 +244,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "FAILED", Toast.LENGTH_LONG).show();
             }
         });*/
-=======
         docente.put("disponibilidad", "4");
         docente.put("direccion", "av. aroma");
         docente.put("presupuesto", "3000");
@@ -264,7 +262,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
->>>>>>> 7962dac8b065b772dcdd0ea1d04291024cc90032
+
 
 
     }

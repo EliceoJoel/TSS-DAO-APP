@@ -113,15 +113,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
             }
         });
     }
-
-<<<<<<< HEAD
-    private String getAgenciesFromCome(List<Double> distances) {
-=======
-
-
-
     private Agencias getAgencyFromCome(List<Double> distances) {
->>>>>>> 7b04be134b4674089f5a37736aab12f68de60c8b
         double minDistance = Collections.min(distancesBetweenAgencyAndCurrentLocation);
         int agencyNumber = 0;
         for(int index = 0; index < distances.size(); index++) {
@@ -130,12 +122,7 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
                 break;
             }
         }
-<<<<<<< HEAD
-=======
-
         Agencias agencia = null;
-
->>>>>>> 7b04be134b4674089f5a37736aab12f68de60c8b
         switch (agencyNumber) {
             case 0:
                 agencia = Agencias.AGENCIA1;

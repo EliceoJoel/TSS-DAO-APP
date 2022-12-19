@@ -238,45 +238,6 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-    public void connectToFireBase(){
-        Map<String,Object> docente = new HashMap<>();
-        /*docente.put("FirstName", "Henry");
-        docente.put("LastName", "Villaroel");
-        docente.put("Labor Position", "Director de Carrera");*/
-
-        /*store.collection("docentes").add(docente).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "FAILED", Toast.LENGTH_LONG).show();
-            }
-        });*/
-        docente.put("disponibilidad", "4");
-        docente.put("direccion", "av. aroma");
-        docente.put("presupuesto", "3000");
-
-        store.collection("agencias").document("Agencia1")
-                .set(docente)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                    }
-                });
-
-
-
-    }
 
 
 }

@@ -162,7 +162,8 @@ public class SelectDestinyActivity extends FragmentActivity implements OnMapRead
 
 
         if (String.valueOf(costoTotal).length() > 4){
-            costoTotal = Math.ceil(costoTotal);
+            costoTotal = Math.round(costoTotal*100.0)/100.0;
+            //Math.round(n*100.0)/100.0;
         }
 
         return costoTotal;

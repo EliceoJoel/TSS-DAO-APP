@@ -156,8 +156,10 @@ public class DashboardFragment extends Fragment {
 
                 if (snapshot != null && snapshot.exists()) {
                     String infoTotal = snapshot.getData().get("total").toString();
+                    double n=Double.parseDouble(infoTotal);
+                    double r = Math.round(n*100.0)/100.0;
                     TextView totalview = root.findViewById(R.id.totalGanancias);
-                    totalview.setText(infoTotal + " Bs");
+                    totalview.setText(r + " Bs");
 
                 } else {
                     Log.d(TAG, "Current data: null");
@@ -294,7 +296,9 @@ public class DashboardFragment extends Fragment {
 
                 if (snapshot != null && snapshot.exists()) {
                     String infoTotal = snapshot.getData().get("total").toString();
-                    extraerInfoAgencias(infoTotal,"agencias");
+                    double n=Double.parseDouble(infoTotal);
+                    double r = Math.round(n*100.0)/100.0;
+                    extraerInfoAgencias(r+"","agencias");
 
                 } else {
                     Log.d(TAG, "Current data: null");
